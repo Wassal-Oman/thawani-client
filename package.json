@@ -1,0 +1,35 @@
+{
+  "name": "thawani-client",
+  "version": "1.0.0",
+  "description": "Thawani Desktop Application For Merchant Notification Service.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Thawani Pay",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^2.0.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^3.3.7",
+    "bootstrap-datepicker": "^1.8.0",
+    "bootstrap-table": "^1.12.1",
+    "electron-print": "^1.0.2",
+    "https": "^1.0.0",
+    "ionicons": "^4.4.3",
+    "jquery": "^3.3.1",
+    "jsonwebtoken": "^8.3.0",
+    "modernizr": "^3.6.0",
+    "qs": "^6.5.2"
+  }
+}

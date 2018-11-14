@@ -1,0 +1,37 @@
+{
+  "data": {
+    "Status": "906",
+    "Msg": "Invalid user credential.",
+    "TimeStamp": "1542197055"
+  },
+  "status": 200,
+  "statusText": "OK",
+  "headers": {
+    "pragma": "no-cache",
+    "date": "Wed, 14 Nov 2018 12:04:15 GMT",
+    "x-content-type-options": "nosniff",
+    "server": "Microsoft-IIS/8.5",
+    "x-frame-options": "DENY",
+    "content-type": "application/json; charset=utf-8",
+    "cache-control": "no-cache",
+    "content-length": "74",
+    "x-xss-protection": "1; mode=block",
+    "expires": "-1"
+  },
+  "config": {
+    "transformRequest": {},
+    "transformResponse": {},
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "method": "post",
+    "url": "http://uat.thawani.om:7501/api/Login",
+    "data": "Trantype=LOGIN&SourceID=%7B%22SOURCE_ID%22%3A%221D4CAD80-E461-4E9C-873A-9F7457F9099D%22%2C%22MERCHANT_ID%22%3A%2230167%22%2C%22PRIVATE_KEY%22%3A%22-----BEGIN%20RSA%20PRIVATE%20KEY-----%5CnMIIEogIBAAKCAQBKCwL8xu5AVh0VfWgOJkkpbc2sMR77RImZQ4p%2B9ILgE%2FugUcOE%5CnZAo46hyuiSIAbZBmRQp306Igqc4si1eUuZ%2Fei36Mu8a2c8dUhEr8oDXx%2FNfMHyYh%5CnTdlSyW5NIvZ%2FiDGD6q7yz1AVt8lHYRJzDDoviUR3M%2FX5w0tmpC6sOkM%2F79OHUfg0%5CngzuVFAWwg5McC%2BK6emH6o0U6nhs0UDgE%2BJS1bBxTOyXkinwPGztnueVygh2pUJv1%5Cnp8i3uen8u%2Bs64wH4fX0%2FgKf0%2FIon0JxTbDNFszoQVO6Iin3F3hKvyikDKYmBCxuU%5CnUCQAT6o6MdVPRJV%2BAqTL3spQC%2FwxGnjtOaZVAgMBAAECggEAAS3zujshCH1WsUTy%5CnJ2eMutA4%2Bok9yRrqZjqhNiyG%2BTLYS1GCH9XII%2Bf21QDyPbeBGV%2F4Lrh8WLDby%2FHc%5CnT041scHfHjbPj5CAmGQTHbsfoN86QNIuNVGcKKl0zF3GN3nf8A4JA20yBWaMGkr9%5CnlD%2BZnbA%2BGvgE7xmhVd0%2FsRasg5Q2Exy%2F8QW1DCPYB6p%2F55blBCSKckpbtzd51SBx%5CnEr%2FVxBpWFg5T1hceSijQD0nZYHn%2Fw85q8q9nEwmiu6YgivEADMkcEzTUnM33hswZ%5Cnp73SVSNG3x9E5IJLgvRquzEmQT7%2FXmO7cE2UY9ozrPav2S04F%2FxR%2BjND3TrFkRUY%5CnSVR1cQKBgQCNVrrjqjdAyIXQc0pEwPKkbNgSXL2ekj19xGvkUKkUVRebDr8lU1Ha%5Cn9gwG7kSz1Qfb4jd%2BJbr3bu5wvBj8FjrWaIRDBaaNsjmpbGkddV%2BNcFXQOQVQvFn%2B%5CnwCBKlvg5EWUizNpHyU3sy7b8aIDLgCN7zGbB0rG%2BIk8m86dhtJeHKwKBgQCGHEfd%5CnLbF61iU3Ui6fQOkIl8vaM8TKkA33ht%2FdOIBq0B8ArlBhkXpAqXahUryh14AVMnSj%5Cn6s%2FxDcUnhwvWXC%2FGGQHYEG88MHk7w1ew7d8FOvpYlBa5UM1tD5E685PKFcBTukvX%5CntS4vAfAW%2BVOovTZeDrAAwuzJXCv2n9yvo1zIfwKBgCOrq%2BchYmh7Myp0rl3DxHky%5Cn7yVTOpf2mIZROFma8dEr2JVNl3g4GwSD7G0jXTt1nFImOZMgupsP6CWTk0qr4ZWT%5CnMy4nEu3X%2BS2FKtJAeSkdHMs8WNcTcjMVEhFBIMxmU3wA72YGrCADGd%2BCEF9Lq6jm%5Cn4VgxcKJnzkoqXCgQh92ZAoGAI%2B%2BGDi1FRm4FcOpzlbbV%2Brh6JlEC5WhuZapdaDDQ%5CnsE5uUEdlQI%2Bz24nNQPMjmpZdOtDXUmkEKUqQTsQwFtOC9akTxmq4877lbW8tmzpS%5CnLVudY4jjAes18IhgWRSVwGvNqmHcGsPwySXSyMUsdqWk4NU8sieJPXeWTDKP9vxm%5CnS08CgYEAgiQ1oZ81vttD9TfGc8T6XVLYXgRGaqCzFDzSvCrfRc%2FJtDQ3lb1etrVJ%5Cn0NOR6CX1nM6JmS4wHl9GkYAeiuiBT5rF8k2qKif11Ek%2FI3%2FVbwrQbNT3TcmLIwaV%5Cn5falWZ8Sw%2Bg8%2Bb4%2BqkzeEpCsfwGDbZGE%2B16RT7BYnVvUNizOL4U%3D%5Cn-----END%20RSA%20PRIVATE%20KEY-----%22%7D&MSG=USERNAME%3D30167%7CPASSWORD%3Dr0uT7w6JqyKJNWgKlQd2bgZnT0QTaa1RCeP2s6xwLB%2FJw9j5vJznlgPP102G6mZUCcGi%2F2yFpMUhpjxC%2BpN%2FWwIkP7jTxNBnStHz0hsqCUNiZlKPHXvg6XxEyukhKrhfHFYbkRPkmxXOl9wW6jImKA8OhcYZjvuNlBYN0MCLYCZLOrsseSlTPwkDd9X3npK2j7TUsk1EKlYm4%2FSMKVGhmZFk5rBboqxc%2BgH6Js3dwGbgxqKavP1p9CG7LykT36ujLKJHlqa13Hrt8srnWSlKTOZX2eZqgs47IrfxESiuw9oKfIw%2FP5u4srPsUuImIsod14ztpFUDRns1C8SerWeslg%3D%3D"
+  },
+  "request": {}
+}

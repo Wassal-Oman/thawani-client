@@ -1,0 +1,21 @@
+{
+    "Status": "00",
+    "Msg": [
+        {
+            "ID": 1,
+            "STATUSCODE": "1009",
+            "TransactionStatus": "",
+            "MerchantID": "30167",
+            "MerchantName": "TPTest",
+            "TranAmount": "0.000",
+            "CustomerName": "Majid Test",
+            "CustomerMobile": "71118963",
+            "TranDate": null,
+            "ThirdPartyTranID": "token_154157221",
+            "ThawaniTranID": "",
+            "NotificationStatus": "Transaction is rejected",
+            "NotificationDate": "Nov  7 2018 10:30AM"
+        }
+    ],
+    "TimeStamp": "1541574983"
+}

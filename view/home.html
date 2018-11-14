@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-table/dist/bootstrap-table.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../node_modules/ionicons/dist/css/ionicons.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="../css/home-style.css">
+
+</head>
+
+<body onload="loadData()">
+
+  <!-- Main Page Content -->
+  <div class="container">
+    <div class="row card">
+      <div class="col-xs-3">
+        <img id="profile-image" alt="Profile Image" src="../assets/profile.jpg" width="120px" height="120px">
+      </div>
+      <div class="col-xs-6">
+        <div class="information">
+          <div class="desc">
+            <p>Merchant ID: <span id="userId" class="bold"></span></p>
+          </div>
+          <div class="desc">
+            <p>Merchant Name: <span id="name" class="bold"></span></p>
+          </div>
+          <div class="desc"><small>
+              <p>Last Login: <span id="lastLogin" class="bold"></span></p>
+            </small></div>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div class="circle-text">
+          <small>Total Sales</small>
+          <p id="total-sales" style="font-weight: bold;">12.5 OMR</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row card">
+      <div class="col-xs-6">
+        <div class="table-style">
+          <table id="here" class="table table-striped">
+            <thead>
+              <tr>
+                <th valign="middle">
+                  <div id="imhere" class="checkbox">
+                    <span class="character-checkbox" onclick="imhere()"></span>
+                    <span class="label">I'm Here</span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="imhere-data">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="table-style">
+          <table id="note" style="background-color: #ffffff" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Payment Notifications</th>
+              </tr>
+              <tr>
+                <th class="calendar" id="dates">
+                    <div class="input-group input-group-sm input-daterange">
+                      <input type="text" name="date" class="form-control" placeholder="start date" readonly>
+                      <div class="input-group-addon">to</div>
+                      <input  type="text" name="date" class="form-control" placeholder="end date" readonly>
+                    </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is rejected</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is pending</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is rejected</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is rejected</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is pending</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is accepted</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is accepted</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is rejected</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is pending</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is pending</td>
+              </tr>
+              <tr>
+                <td class="note-phone">99663322</td>
+                <td class="note-message">Transaction is pending</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sending Wayyak Modal -->
+      <div class="modal fade" id="wayyak-dailog" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Sending Wayyak</h4>
+            </div>
+            <div class="modal-body" style="background-color: #ebebeb;">
+              <div class="row">
+                <div class="col-xs-6">
+                  <ul id="keyboard">
+                    <li id="n1" class="letter">1</li>
+                    <li id="n2" class="letter">2</li>
+                    <li id="n3" class="letter">3</li>
+                    <li id="n4" class="letter clearl">4</li>
+                    <li id="n5" class="letter">5</li>
+                    <li id="n6" class="letter">6</li>
+                    <li id="n7" class="letter clearl">7</li>
+                    <li id="n8" class="letter">8</li>
+                    <li id="n9" class="letter">9</li>
+                    <li id="back" class="letter clearl">
+                      <ion-icon name="arrow-back"></ion-icon>
+                    </li>
+                    <li id="n0" class="letter">0</li>
+                    <li id="nPeriod" class="letter">.</li>
+                  </ul>
+                </div>
+                <div class="col-xs-6" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="customer-phone" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                      placeholder="Customer Phone Number">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="amount" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+                      placeholder="Amount">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="remarks" placeholder="Remarks">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="send-wayyak" type="button" class="btn btn-success" data-dismiss="modal">Send</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sending Wayyak Modal in a table-->
+      <div class="modal fade" id="wayyak-dailog-in-table" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Sending Wayyak</h4>
+            </div>
+            <div class="modal-body" style="background-color: #ebebeb;">
+              <div class="row">
+                <div class="col-xs-12" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="customer-phone-in-table" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                      placeholder="Customer Phone Number">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="amount" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+                      placeholder="Amount">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="remarks" placeholder="Remarks">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="send-wayyak" type="button" class="btn btn-success" data-dismiss="modal">Send</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generating QR Modal -->
+      <div class="modal fade" id="qr-dailog" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Generating QR Code</h4>
+            </div>
+            <div class="modal-body" style="background-color: #ebebeb;">
+              <div class="well">
+                Cashier ID is <label id="cashier-id" for="cashier id">00000</label>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" id="table-number" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                  placeholder="Table Number From 1 To 99">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="generate-qr" type="button" class="btn btn-success" data-dismiss="modal">Generate</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-left: 10px; margin-right: 10px;">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#qr-dailog">Generate QR</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#wayyak-dailog">Send Wayyak</button>
+        <button id="sign-out" type="button" class="btn btn-success" style="float: right;">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- JS Files -->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="../node_modules/ionicons/dist/ionicons.js"></script>
+    <script src="../node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="../js/CRC.js"></script>
+    <script src="../js/ConvertToQR.js"></script>
+    <script src="../js/API.js"></script>
+    <script>if (window.module) module = window.module;</script>
+    <script>
+
+      function loadData() {
+        const path = require("path")
+        const fs = require("fs")
+        let absolutePath = path.resolve('./data/user.json')
+        let content = fs.readFileSync(absolutePath)
+        var jsonContent = JSON.parse(content)
+
+        // Get Value from JSON
+        $(document).ready(() => {
+          $('#name').text(`${jsonContent.FirstName} ${jsonContent.LastName}`)
+          $('#userId').text(jsonContent.UserId)
+          $('#cashier-id').text(jsonContent.UserId)
+          $('#lastLogin').text(jsonContent.LastLoginDate)
+        })
+      }
+
+      $(document).ready(() => {
+
+        let date_input = $('input[name="date"]'); //our date input has the name "date"
+        let options={
+          format: 'yyyy-mm-dd',
+          todayHighlight: true,
+          autoclose: true,
+        };
+        date_input.datepicker(options);
+
+        // flags
+        let isPhoneFieldSelected = false
+        let isAmountFieldSelected = false
+
+        $("#amount").focus(() => {
+          isAmountFieldSelected = true
+          isPhoneFieldSelected = false
+          console.log('Amount Selected!')
+        })
+
+        $("#customer-phone").focus(() => {
+          isAmountFieldSelected = false
+          isPhoneFieldSelected = true
+        })
+
+        $('#remarks').focus(() => {
+          isAmountFieldSelected = false
+          isPhoneFieldSelected = false
+        })
+
+        // check which input is selected for keypad
+        $('#n1').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '1')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '1')
+          }
+        })
+
+        $('#n2').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '1')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '2')
+          }
+        })
+
+        $('#n3').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '3')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '3')
+          }
+        })
+
+        $('#n4').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '4')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '4')
+          }
+        })
+
+        $('#n5').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '5')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '5')
+          }
+        })
+
+        $('#n6').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '6')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '6')
+          }
+        })
+
+        $('#n7').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '7')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '7')
+          }
+        })
+
+        $('#n8').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '8')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '8')
+          }
+        })
+
+        $('#n9').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '9')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '9')
+          }
+        })
+
+        $('#n0').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '0')
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            $('#customer-phone').val(num + '0')
+          }
+        })
+
+        $('#nPeriod').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            $('#amount').val(num + '.')
+          }
+        })
+
+        $('#back').click(() => {
+          if (isAmountFieldSelected) {
+            let num = $('#amount').val()
+            let res = num.substring(0, num.length - 1)
+            $('#amount').val(res)
+          }
+
+          if (isPhoneFieldSelected) {
+            let num = $('#customer-phone').val()
+            let res = num.substring(0, num.length - 1)
+            $('#customer-phone').val(res)
+          }
+        })
+
+        $('#generate-qr').click(() => {
+
+          // handle QR Code generation
+          let cashier_id = $('#cashier-id').text()
+          let table_num = $('#table-number').val()
+
+          if (cashier_id != '' && table_num != '') {
+
+            // check for table number
+            if (Number.parseInt(table_num) > 0 && Number.parseInt(table_num) < 100) {
+              let code = generateQRCodeString(cashier_id, table_num)
+              let image = setImage(code)
+              window.open(image)
+            } else {
+              alert('Table number must be a number between 1 and 99')
+            }
+          } else {
+            alert('Please enter Table Number')
+          }
+        })
+
+        $('#send-wayyak').click(() => {
+          let phone = $('#customer-phone').val()
+          let amount = $('#amount').val()
+          let remarks = $('#remarks').val()
+
+          if (phone != '' && amount != '') {
+            sendWayyak(phone, amount, remarks)
+          } else {
+            alert('Please enter customer phone number and amount')
+          }
+        })
+
+        $('#sign-out').click(() => {
+          // handle signing out operation
+          window.location = 'login.html'
+        });
+      });
+
+      $('.input-daterange input').each(() => {
+          $(this).datepicker('clearDates');
+      });
+
+      function showNotificationTable() {
+        
+      }
+
+      function imhere() {
+
+        let class_exists = $('#imhere').hasClass('show')
+        let myData = []
+
+        if (!class_exists) {
+          $('.checkbox').addClass('show')
+
+          // start service
+          setInterval(() => {
+            let cashier = $('#cashier-id').text()
+            if (cashier !== '') {
+              getAllTables(cashier).then((response) => {
+
+                console.log(response.data.data)
+
+                // read all elements
+                myData = response.data.data
+
+                // load data
+                if (myData.length > 0) {
+                  let table = document.getElementById('imhere-data')
+
+                  // remove old elements
+                  while (table.hasChildNodes()) {
+                    table.removeChild(table.firstChild);
+                  }
+
+                  // add new elements
+                  myData.forEach((object) => {
+                    var tr = document.createElement('tr')
+                    tr.innerHTML = '<td>' + object.phone + '</td>' +
+                      '<td> Table #' + object.table_number + '</td>' +
+                      '<td><button style="height: 25px; width: 50px;" class="here info text-center" data-toggle="modal" data-target="#wayyak-dailog-in-table"><ion-icon name="send"></ion-icon></button></td>'
+                    table.appendChild(tr)
+                  })
+
+                  // remove all elements
+                  myData.splice(0, myData.length)
+                } else {
+                  var tr = document.createElement('tr')
+                  tr.innerHTML = '<td> No data available </td>'
+                  table.appendChild(tr)
+                }
+              }).catch(error => {
+                console.log(error)
+              })
+            }
+          }, 10000)
+        } else {
+          $('.checkbox').removeClass('show')
+        }
+      }
+
+    </script>
+</body>
+
+</html>

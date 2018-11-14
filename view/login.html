@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/login-style.css">
+</head>
+
+<body>
+  <button id="user-settings-button" style="font-size:24px; margin: 5px 10px;" data-toggle="modal" data-target="#user-settings"><i class="fa fa-gear"></i></button>
+  <section id="login">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-wrap">
+            <div class="logo text-center"><img src="../assets/thawani_icon.png" width="64" height="64"></div>
+            <h1>tha<span class="thawani">wani</span></h1>
+            <form role="form" action="javascript:;" id="login-form" autocomplete="off" onsubmit="login()">
+              <div class="form-group">
+                <label for="cashier id" class="sr-only">Cashier ID</label>
+                <input type="number" id="cashier_id" class="form-control" placeholder="Cashier ID">
+              </div>
+              <div class="form-group">
+                <label for="key" class="sr-only">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Password">
+              </div>
+              <div id="remember" class="checkbox">
+                <span class="character-checkbox" onclick="rememberMe()"></span>
+                <span class="label">Remember Me</span>
+              </div>
+              <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Sign In">
+            </form>
+            <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">
+              Forgot your password?
+            </a>
+            <hr>
+          </div>
+        </div> <!-- /.col-xs-12 -->
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+  </section>
+
+  <!-- loader -->
+  <div id="loader" class="loading"></div>
+
+  <div class="modal fade forget-modal" tabindex="-1" role="dialog" aria-labelledby="myForgetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title">Password Recovery</h4>
+        </div>
+        <div class="modal-body">
+          <p>Type your email account</p>
+          <input type="email" name="recovery-email" id="recovery-email" class="form-control" autocomplete="off" placeholder="email@example.com">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-custom" onclick="forgetPassword()">Send</button>
+        </div>
+      </div> <!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+  </div> <!-- /.modal -->
+
+  <!-- Settings Modal -->
+  <div class="modal fade" id="user-settings" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Settings</h4>
+        </div>
+        <div class="modal-body" style="background-color: #ebebeb;">
+          <div class="form-group">
+            <input class="form-control" type="text" id="merchantid" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Cashier ID">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="sourceid" placeholder="Source ID">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" style="resize: none;" id="privatekey" cols="20" rows="10" placeholder="Private Key"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="save-settings" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <p>Thawani Client - Version 1.0.0</a></strong></p>
+          <p>©Thawani Technologies. All rights reserved - 2018</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Files -->
+  <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../js/API.js"></script>
+  <script>if (window.module) module = window.module;</script>
+  <script>
+    // import needed libraries
+    const store = require('../js/StoreData');
+    const retrieve = require('../js/GetData');
+    const signIn = require('../js/Login');
+
+    // make sure the page is fully loaded
+    $(document).ready(() => {
+
+      // loader
+      $("#loader").removeClass('loading');
+
+      // get cashier id if stored
+      retrieve('./data/settings.json').then(val => {
+        // parse data
+        let content = JSON.parse(val);
+        $('#cashier_id').val(content.MERCHANT_ID);
+      }).catch(err => {
+        console.log('No settings found!');
+      });
+
+      // save settings
+      $('#save-settings').click(() => {
+
+        // read input data
+        let sourceid = $('#sourceid').val();
+        let merchantid = $('#merchantid').val();
+        let privatekey = $('#privatekey').val();
+
+        // create an object from given inputs
+        let data = {
+          SOURCE_ID: sourceid,
+          MERCHANT_ID: merchantid,
+          PRIVATE_KEY: privatekey
+        };
+
+        // store data
+        store('./data/settings.json', data).then(val => {
+          if(val) {
+            alert('saved!');
+          } else {
+            alert('cannot save!');
+          }
+        }).catch(err => {
+          alert('cannot save!');
+        });
+      });
+
+      // load settings
+      $('#user-settings-button').click(() => {
+        retrieve('./data/settings.json').then(val => {
+
+          // parse data
+          let content = JSON.parse(val);
+
+          // display inside inputs
+          $('#sourceid').val(content.SOURCE_ID);
+          $('#merchantid').val(content.MERCHANT_ID);
+          $('#privatekey').val(content.PRIVATE_KEY);
+          $('#cashier_id').val(content.MERCHANT_ID);
+        }).catch(err => {
+          alert('No settings found!');
+        });
+      });
+    });
+
+    function login() {
+      // read user input
+      cashierId = $("#cashier_id").val();
+      password = $("#password").val();
+
+      if (cashierId !== '' && password !== '') {
+        
+        // display loader
+        $("#loader").addClass('loading');
+
+        // make login request
+        signIn(cashierId, password).then(val => {
+
+          $("#loader").removeClass('loading');
+
+          let data = JSON.parse(JSON.stringify(val)).data;
+          let status = data.Status;
+          let message = data.Msg;
+
+          if(status !== '00') {
+            alert(message);
+          } else {
+            // go to home page
+            console.log('go to home page');
+          }
+        }).catch(err => {
+
+          $("#loader").removeClass('loading');
+
+          let data = JSON.parse(JSON.stringify(err)).data;
+          let message = data.Msg;
+
+          alert(message);
+        });
+
+      } else {
+        alert("Please enter cashier ID and password")
+      }
+    }
+
+    function rememberMe() {
+      let class_exists = $('#remember').hasClass('show')
+
+      if (!class_exists) {
+        $('.checkbox').addClass('show');
+      } else {
+        $('.checkbox').removeClass('show');
+      }
+    }
+
+    function forgetPassword() {
+      // handle forget password
+    }
+  </script>
+</body>
+</html>

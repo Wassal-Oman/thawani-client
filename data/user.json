@@ -1,0 +1,10 @@
+{
+    "StatusCode": "00   ",
+    "Description": "Success",
+    "FirstName": "TPTest",
+    "LastName": "",
+    "UserId": "30167",
+    "LastLoginDate": "Nov 12,2018 / 15:15",
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMwMTY3Iiwicm9sZSI6Ilt7XCJVc2VyUm9sZVwiOlwiTVwiLFwiSXNTZXRNUElOXCI6XCIxXCIsXCJJc0NoYW5nZVBhc3N3b3JkXCI6XCIwXCIsXCJEZWxpbmtGbGFnXCI6XCIwXCIsXCJVc2VySURcIjpcIjMwMTY3XCIsXCJQdWJsaWNLZXlcIjpcIlwifV0iLCJuYmYiOjE1NDIxNzc1MzksImV4cCI6MTU0MjE4NDczOSwiaWF0IjoxNTQyMTc3NTM5fQ.8ZxMH4EtGCRzWo2NbzRWuAinTbSvglDWrKS_9Qu5bSw",
+    "UserRole": "M"
+}
