@@ -131,6 +131,12 @@
         </div>
       </div>
 
+      <div>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#qr-dailog">Generate QR</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#wayyak-dailog">Send Wayyak</button>  
+        <button id="sign-out" type="button" class="btn btn-success" style="float: right;">Sign Out</button>
+      </div>
+
       <!-- Sending Wayyak Modal -->
       <div class="modal fade" id="wayyak-dailog" role="dialog">
         <div class="modal-dialog">
@@ -246,11 +252,6 @@
         </div>
       </div>
 
-      <div class="row" style="margin-left: 10px; margin-right: 10px;">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#qr-dailog">Generate QR</button>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#wayyak-dailog">Send Wayyak</button>
-        <button id="sign-out" type="button" class="btn btn-success" style="float: right;">Sign Out</button>
-      </div>
     </div>
 
     <!-- JS Files -->
@@ -522,7 +523,7 @@
         $('#sign-out').click(() => {
 
           // TODO: clear user data
-          window.location = 'login.html'
+          window.location = 'login.html';
         });
       });
 
@@ -536,26 +537,26 @@
 
       function imhere() {
 
-        let class_exists = $('#imhere').hasClass('show')
-        let myData = []
+        let class_exists = $('#imhere').hasClass('show');
+        let myData = [];
 
         if (!class_exists) {
-          $('.checkbox').addClass('show')
+          $('.checkbox').addClass('show');
 
           // start service
           setInterval(() => {
-            let cashier = $('#cashier-id').text()
+            let cashier = $('#cashier-id').text();
             if (cashier !== '') {
               getAllTables(cashier).then((response) => {
 
-                console.log(response.data.data)
+                console.log(response.data.data);
 
                 // read all elements
-                myData = response.data.data
+                myData = response.data.data;
 
                 // load data
                 if (myData.length > 0) {
-                  let table = document.getElementById('imhere-data')
+                  let table = document.getElementById('imhere-data');
 
                   // remove old elements
                   while (table.hasChildNodes()) {
@@ -572,19 +573,19 @@
                   });
 
                   // remove all elements
-                  myData.splice(0, myData.length)
+                  myData.splice(0, myData.length);
                 } else {
                   var tr = document.createElement('tr');
                   tr.innerHTML = '<td> No data available </td>';
                   table.appendChild(tr);
                 }
               }).catch(error => {
-                console.log(error)
+                console.log(error);
               });
             }
           }, 10000)
         } else {
-          $('.checkbox').removeClass('show')
+          $('.checkbox').removeClass('show');
         }
       }
 

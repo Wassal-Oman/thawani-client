@@ -141,6 +141,21 @@
         console.log('No settings found!');
       });
 
+      // get cashier id if stored
+      retrieve('./data/remember.json').then(val => {
+        // parse data
+        let content = JSON.parse(val);
+        let rem = content.REMEMBER_ME;
+
+        if(rem) {
+          $('.checkbox').addClass('show');
+        } else {
+          $('.checkbox').removeClass('show');
+        }
+      }).catch(err => {
+        console.log('No Remember Me Option Found!');
+      });
+
       // save settings
       $('#save-settings').click(() => {
 
@@ -238,13 +253,35 @@
     }
 
     function rememberMe() {
-      let class_exists = $('#remember').hasClass('show')
+      let class_exists = $('#remember').hasClass('show');
+      let r = {
+        REMEMBER_ME: false
+      };
 
       if (!class_exists) {
         $('.checkbox').addClass('show');
+
+        r = {
+          REMEMBER_ME: true
+        };
+
       } else {
         $('.checkbox').removeClass('show');
+
+        r = {
+          REMEMBER_ME: false
+        };
       }
+
+      store('./data/remember.json', r).then(val => {
+        if(val) {
+          console.log('Remember Me Option is ON');
+        } else {
+          console.log('Remember Me Option is OFF');
+        }
+      }).catch(err => {
+        console.log('ERROR in Remember Me Option');
+      });
     }
 
     function forgetPassword() {
