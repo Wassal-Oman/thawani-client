@@ -567,20 +567,20 @@
                     var tr = document.createElement('tr')
                     tr.innerHTML = '<td>' + object.phone + '</td>' +
                       '<td> Table #' + object.table_number + '</td>' +
-                      '<td><button style="height: 25px; width: 50px;" class="here info text-center" data-toggle="modal" data-target="#wayyak-dailog-in-table"><ion-icon name="send"></ion-icon></button></td>'
-                    table.appendChild(tr)
-                  })
+                      '<td><button style="height: 25px; width: 50px;" class="here info text-center" data-toggle="modal" data-target="#wayyak-dailog-in-table"><ion-icon name="send"></ion-icon></button></td>';
+                    table.appendChild(tr);
+                  });
 
                   // remove all elements
                   myData.splice(0, myData.length)
                 } else {
-                  var tr = document.createElement('tr')
-                  tr.innerHTML = '<td> No data available </td>'
-                  table.appendChild(tr)
+                  var tr = document.createElement('tr');
+                  tr.innerHTML = '<td> No data available </td>';
+                  table.appendChild(tr);
                 }
               }).catch(error => {
                 console.log(error)
-              })
+              });
             }
           }, 10000)
         } else {

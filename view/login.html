@@ -61,12 +61,12 @@
           <h4 class="modal-title">Password Recovery</h4>
         </div>
         <div class="modal-body">
-          <p>Type your email account</p>
-          <input type="email" name="recovery-email" id="recovery-email" class="form-control" autocomplete="off" placeholder="email@example.com">
+          <p>Type your cashier id</p>
+          <input type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="recovery-email" id="recovery-email" class="form-control" autocomplete="off" placeholder="Cashier ID">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-custom" onclick="forgetPassword()">Send</button>
+          <button type="button" class="btn btn-custom" data-dismiss="modal" onclick="forgetPassword()">Send</button>
         </div>
       </div> <!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
@@ -123,6 +123,7 @@
     const store = require('../js/StoreData');
     const retrieve = require('../js/GetData');
     const signIn = require('../js/Login');
+    const mail = require('../js/SendEmail');
 
     // make sure the page is fully loaded
     $(document).ready(() => {
@@ -135,6 +136,7 @@
         // parse data
         let content = JSON.parse(val);
         $('#cashier_id').val(content.MERCHANT_ID);
+        $('#recovery-email').val(content.MERCHANT_ID);
       }).catch(err => {
         console.log('No settings found!');
       });
@@ -246,7 +248,19 @@
     }
 
     function forgetPassword() {
-      // handle forget password
+
+      // get cashier id
+      let merId = $('#recovery-email').val();
+
+      if(merId !== '') {
+        mail(merId).then(val => { // send email
+          alert(val);
+        }).catch(err => {
+          alert(err);
+        });
+      } else {
+        alert('Please enter cashier id!');
+      }
     }
   </script>
 </body>
