@@ -11,7 +11,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 650, resizable: false, icon: path.join(__dirname, 'assets/icon.png')})
 
   // Add debug tools
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // hide menu bar
   mainWindow.setMenu(null);

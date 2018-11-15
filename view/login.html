@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <button id="user-settings-button" style="font-size:24px; margin: 5px 10px;" data-toggle="modal" data-target="#user-settings"><i class="fa fa-gear"></i></button>
+  <button class="btn btn-default btn-xs" id="user-settings-button" style="font-size:18px; margin: 5px 10px;" data-toggle="modal" data-target="#user-settings"><i class="fa fa-gear"></i></button>
   <section id="login">
     <div class="container">
       <div class="row">
@@ -206,6 +206,17 @@
           if(status !== '00') {
             alert(message);
           } else {
+            // store user data
+            let msg = JSON.parse(message)[0];
+            store('./data/user.json', msg).then(val => {
+              if(val) {
+                window.location = 'home.html';
+              } else {
+                alert('cannot store user data');
+              }
+            }).catch(err => {
+              console.log(err);
+            });
             // go to home page
             console.log('go to home page');
           }
