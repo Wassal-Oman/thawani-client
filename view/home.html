@@ -38,7 +38,7 @@
       <div class="col-xs-3">
         <div class="circle-text">
           <small>Total Sales</small>
-          <p id="total-sales" style="font-weight: bold;">0 OMR</p>
+          <p id="total-sales" style="font-weight: bold;"></p>
         </div>
       </div>
     </div>
@@ -247,13 +247,9 @@
 
             history(startDate, endDate).then((response) => {
 
-              console.log(response.data);
-
               // read response
               let status = response.data.Status;
               let message = response.data.Msg;
-
-              console.log(message);
 
               // check status
               if(status === '00') {
@@ -304,6 +300,9 @@
                 // remove all elements
                 myData.splice(0, myData.length);
               }
+
+              // update sales
+              updateSales();
             }).catch(error => {
               console.log(error);
             });
@@ -313,6 +312,7 @@
 
       $(document).ready(() => {
 
+        // load user data
         retrieve('./data/user.json').then(data => {
 
           // parse user data
@@ -328,6 +328,9 @@
         }).catch(err => {
           console.log(err);
         });
+
+        // show total sales
+        updateSales();
 
         let date_input = $('input[name="date"]'); //our date input has the name "date"
         let options={
@@ -567,8 +570,46 @@
           $(this).datepicker('clearDates');
       });
 
-      function showNotificationTable() {
-        
+      function updateSales() {
+        // load total sales
+        history('', '').then((response) => {
+
+          // read response
+          let status = response.data.Status;
+          let message = response.data.Msg;
+
+          if(status === '00') {
+            // read all elements
+            let myData = [];
+            myData = JSON.parse(message);
+            let totalSales = 0.0;
+
+            // check for elements if exist
+            if (myData.length > 0) {
+
+              // add new elements
+              myData.forEach((object) => {
+                console.log(JSON.stringify(object));
+                totalSales += Number.parseFloat(object.TranAmount);
+              });
+
+              $('#total-sales').text(`${totalSales.toString()} OMR`);
+
+              // remove all elements
+              myData.splice(0, myData.length);
+            } else {
+              $('#total-sales').text('0.0 OMR');
+            }
+          } else {
+
+            $('#total-sales').text('0.0 OMR');
+            
+            // remove all elements
+            myData.splice(0, myData.length);
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
       }
 
       function imhere() {

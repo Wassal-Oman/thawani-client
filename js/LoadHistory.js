@@ -72,6 +72,8 @@ module.exports = async (startDate, endDate) => {
                 'SOURCEID': sourceId
             };
 
+            console.log(`Token: ${token}`);
+
             // make http request to Third Party API
             return resolve(axios.post(url, requestBody, config));
 
