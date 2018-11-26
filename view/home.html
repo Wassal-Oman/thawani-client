@@ -12,10 +12,9 @@
   <link rel="stylesheet" href="../node_modules/ionicons/dist/css/ionicons.css">
   <link rel="stylesheet" href="../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="../css/home-style.css">
-
 </head>
 
-<body onload="">
+<body onload="loadHistoryNotifications()">
 
   <!-- Main Page Content -->
   <div class="container">
@@ -39,7 +38,7 @@
       <div class="col-xs-3">
         <div class="circle-text">
           <small>Total Sales</small>
-          <p id="total-sales" style="font-weight: bold;">12.5 OMR</p>
+          <p id="total-sales" style="font-weight: bold;">0 OMR</p>
         </div>
       </div>
     </div>
@@ -81,51 +80,8 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is rejected</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is pending</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is rejected</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is rejected</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is pending</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is accepted</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is accepted</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is rejected</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is pending</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is pending</td>
-              </tr>
-              <tr>
-                <td class="note-phone">99663322</td>
-                <td class="note-message">Transaction is pending</td>
-              </tr>
+            <tbody id="note-data">
+              
             </tbody>
           </table>
         </div>
@@ -270,9 +226,81 @@
       // import needed libraries
       const wayyak = require('../js/SendWayyak');
       const retrieve = require('../js/GetData');
+      const history = require('../js/LoadHistory.js');
 
-      function loadData() {
-        
+      function loadHistoryNotifications() {
+        // empty data
+        let table = document.getElementById('note-data');
+
+        // start service
+        setInterval(() => {
+          let cashier = $('#cashier-id').text();
+
+          if (cashier !== '') {
+            history().then((response) => {
+
+              console.log(response.data);
+
+              // read response
+              let status = response.data.Status;
+              let message = response.data.Msg;
+
+              console.log(message);
+
+              // check status
+              if(status === '00') {
+                // read all elements
+                let myData = [];
+                myData = JSON.parse(message);
+                console.log(myData);
+
+                // check for elements if exist
+                if (myData.length > 0) {
+
+                  // remove old elements
+                  while (table.hasChildNodes()) {
+                    table.removeChild(table.firstChild);
+                  }
+
+                  // add new elements
+                  myData.forEach((object) => {
+                    let transTime = object.NotificationDate.substr(object.NotificationDate.length - 7);
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message"> ${object.NotificationStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                    table.appendChild(tr);
+                  });
+
+                  // remove all elements
+                  myData.splice(0, myData.length);
+                } else {
+                  // remove old elements
+                  while (table.hasChildNodes()) {
+                    table.removeChild(table.firstChild);
+                  }
+
+                  var tr = document.createElement('tr');
+                  tr.innerHTML = '<td> No data available </td>';
+                  table.appendChild(tr);
+                }
+              } else {
+                // remove old elements
+                while (table.hasChildNodes()) {
+                  table.removeChild(table.firstChild);
+                }
+
+                // add row
+                var tr = document.createElement('tr');
+                tr.innerHTML = `<td> ${message} </td>`;
+                table.appendChild(tr);
+
+                // remove all elements
+                myData.splice(0, myData.length);
+              }
+            }).catch(error => {
+              console.log(error);
+            });
+          }
+        }, 10000);
       }
 
       $(document).ready(() => {
@@ -583,7 +611,7 @@
                 console.log(error);
               });
             }
-          }, 10000)
+          }, 10000);
         } else {
           $('.checkbox').removeClass('show');
         }
