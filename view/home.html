@@ -73,9 +73,9 @@
               <tr>
                 <th class="calendar" id="dates">
                     <div class="input-group input-group-sm input-daterange">
-                      <input type="text" name="date" class="form-control" placeholder="start date" readonly>
+                      <input id="start-date" type="text" name="date" class="form-control" placeholder="start date" readonly>
                       <div class="input-group-addon">to</div>
-                      <input  type="text" name="date" class="form-control" placeholder="end date" readonly>
+                      <input id="end-date" type="text" name="date" class="form-control" placeholder="end date" readonly>
                     </div>
                 </th>
               </tr>
@@ -219,7 +219,6 @@
     <script src="../node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="../js/CRC.js"></script>
     <script src="../js/ConvertToQR.js"></script>
-    <script src="../js/API.js"></script>
     <script>if (window.module) module = window.module;</script>
     <script>
 
@@ -231,13 +230,22 @@
       function loadHistoryNotifications() {
         // empty data
         let table = document.getElementById('note-data');
+        let startDate = '';
+        let endDate = '';
 
         // start service
         setInterval(() => {
           let cashier = $('#cashier-id').text();
 
           if (cashier !== '') {
-            history().then((response) => {
+
+            // get dates if entered
+            if($('#start-date').val() != '' && $('#end-date').val() != '') {
+              startDate = $('#start-date').val();
+              endDate = $('#end-date').val();
+            }
+
+            history(startDate, endDate).then((response) => {
 
               console.log(response.data);
 
@@ -564,6 +572,9 @@
       }
 
       function imhere() {
+
+        // import function for I'm Here Service
+        const getAllTables = require('../js/ImHere');
 
         let class_exists = $('#imhere').hasClass('show');
         let myData = [];

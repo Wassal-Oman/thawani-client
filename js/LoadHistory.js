@@ -4,7 +4,7 @@ const moment = require('moment');
 const retrieve = require('../js/GetDataSync');
 const jwt = require('../js/JsonWebToken');
 
-module.exports = async () => {
+module.exports = async (startDate, endDate) => {
 
     return await new Promise((resolve, reject) => {
 
@@ -42,6 +42,13 @@ module.exports = async () => {
         // dates
         let today = moment().format('YYYY-MM-DD');
         let tomorrow = moment(today, 'YYYY-MM-DD').add(1, 'days').format('YYYY-MM-DD');
+
+        if(startDate !== '' && endDate !== '') {
+            today = startDate;
+            tomorrow = endDate;
+        }
+
+        console.log(`today: ${today} - tomorrow: ${tomorrow}`);
 
         // payload
         let unique_name = {
