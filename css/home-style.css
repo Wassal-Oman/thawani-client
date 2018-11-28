@@ -235,6 +235,14 @@ tr:after {
     background-color: #ffffff;
 }
 
+#note tbody td.note-green {
+    color: green;
+}
+
+#note tbody td.note-red {
+    color: red;
+}
+
 #note tbody td.note-time {
     width: 18%;
     float: left;

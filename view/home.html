@@ -37,7 +37,7 @@
       </div>
       <div class="col-xs-3">
         <div class="circle-text">
-          <small>Total Sales</small>
+          <small>Daily Sales</small>
           <p id="total-sales" style="font-weight: bold;"></p>
         </div>
       </div>
@@ -271,7 +271,13 @@
                     let transTime = (object.NotificationDate == null) ? object.TranDate.substr(object.TranDate.length - 7) : object.NotificationDate.substr(object.NotificationDate.length - 7);
                     let noteStatus = (object.NotificationStatus == null) ? 'Paid through app' : object.NotificationStatus;
                     let tr = document.createElement('tr');
-                    tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                    if(noteStatus == "Transaction is approved") {
+                      tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message note-green"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                    } else if(noteStatus == "Transaction is rejected") {
+                      tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message note-red"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                    } else {
+                      tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                    }
                     table.appendChild(tr);
                   });
 
