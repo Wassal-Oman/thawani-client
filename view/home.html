@@ -89,7 +89,8 @@
 
       <div>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#qr-dailog">Generate QR</button>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#wayyak-dailog">Send Wayyak</button>  
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#wayyak-dailog">Send Wayyak</button>
+        <button type="button" class="btn btn-success" onclick="loadHistoryByDate()">Load Recent Transactions</button>  
         <button id="sign-out" type="button" class="btn btn-success" style="float: right;">Sign Out</button>
       </div>
 
@@ -619,6 +620,94 @@
         }).catch((error) => {
           console.log(error);
         });
+      }
+
+      function loadHistoryByDate() {
+        
+        // get dates if entered
+        if($('#start-date').val() != '' && $('#end-date').val() != '') {
+
+          // get table reference
+          let table = document.getElementById('note-data');
+
+          // read start and end dates
+          let startDate = $('#start-date').val();
+          let endDate = $('#end-date').val();
+
+          // send a request to Thrid-Party History API
+          history(startDate, endDate).then((response) => {
+
+            // read response
+            let status = response.data.Status;
+            let message = response.data.Msg;
+
+            // check status
+            if(status === '00') {
+              // read all elements
+              let myData = [];
+              myData = JSON.parse(message);
+              console.log(myData);
+
+              // check for elements if exist
+              if (myData.length > 0) {
+
+                // remove old elements
+                while (table.hasChildNodes()) {
+                  table.removeChild(table.firstChild);
+                }
+
+                // add new elements
+                myData.forEach((object) => {
+                  let transTime = (object.NotificationDate == null) ? object.TranDate.substr(object.TranDate.length - 7) : object.NotificationDate.substr(object.NotificationDate.length - 7);
+                  let noteStatus = (object.NotificationStatus == null) ? 'Paid through app' : object.NotificationStatus;
+                  let tr = document.createElement('tr');
+                  if(noteStatus == "Transaction is approved") {
+                    tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message note-green"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                  } else if(noteStatus == "Transaction is rejected") {
+                    tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message note-red"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                  } else {
+                    tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                  }
+                  table.appendChild(tr);
+                });
+
+                // remove all elements
+                myData.splice(0, myData.length);
+              } else {
+                // remove old elements
+                while (table.hasChildNodes()) {
+                  table.removeChild(table.firstChild);
+                }
+
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td> No data available </td>';
+                table.appendChild(tr);
+              }
+            } else {
+              // remove old elements
+              while (table.hasChildNodes()) {
+                table.removeChild(table.firstChild);
+              }
+
+              // add row
+              var tr = document.createElement('tr');
+              tr.innerHTML = `<td> ${message} </td>`;
+              table.appendChild(tr);
+
+              // remove all elements
+              myData.splice(0, myData.length);
+            }
+
+            // update sales
+            updateSales();
+
+          }).catch((error) => {
+            console.log(error);
+          });
+
+        } else {
+          alert('Please enter a date range!')
+        }
       }
 
       function imhere() {
