@@ -1,17 +1,1 @@
-{
-    "StatusCode": "00   ",
-    "Description": "Success",
-    "IsSetMPIN": "1",
-    "ChangePWD": "0",
-    "UserRole": "M",
-    "SessionKey": "2632850580650934",
-    "FirstName": "TPTest",
-    "LastName": "",
-    "UserId": "30167",
-    "Email": "",
-    "Address": "",
-    "NotificationCnt": "0",
-    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMwMTY3Iiwicm9sZSI6Ilt7XCJVc2VyUm9sZVwiOlwiTVwiLFwiSXNTZXRNUElOXCI6XCIxXCIsXCJJc0NoYW5nZVBhc3N3b3JkXCI6XCIwXCIsXCJEZWxpbmtGbGFnXCI6XCIwXCIsXCJVc2VySURcIjpcIjMwMTY3XCIsXCJQdWJsaWNLZXlcIjpcIlwifV0iLCJuYmYiOjE1NDMyMzY1NTAsImV4cCI6MTU0MzI0Mzc1MCwiaWF0IjoxNTQzMjM2NTUwfQ.KvtCxJEOsemepgf1wXGuxpRvBkwqXDCJhIbxMRNbve8",
-    "IsEmailVerified": "True",
-    "LastLoginDate": "Nov 26,2018 / 16:36"
-}
+{"StatusCode":"00   ","Description":"Success","IsSetMPIN":"1","ChangePWD":"0","UserRole":"M","SessionKey":"7194904406836538","FirstName":"TPTest","LastName":"","UserId":"30167","Email":"","Address":"","NotificationCnt":"0","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMwMTY3Iiwicm9sZSI6Ilt7XCJVc2VyUm9sZVwiOlwiTVwiLFwiSXNTZXRNUElOXCI6XCIxXCIsXCJJc0NoYW5nZVBhc3N3b3JkXCI6XCIwXCIsXCJEZWxpbmtGbGFnXCI6XCIwXCIsXCJVc2VySURcIjpcIjMwMTY3XCIsXCJQdWJsaWNLZXlcIjpcIlwifV0iLCJuYmYiOjE1NDMzOTcyMTUsImV4cCI6MTU0MzQwNDQxNSwiaWF0IjoxNTQzMzk3MjE1fQ.8-5VWxyp7TDsOmDtZoJ7mm3lJyqhtW0hwrQ5knltzsw","IsEmailVerified":"True","LastLoginDate":"Nov 28,2018 / 13:26"}

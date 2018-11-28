@@ -268,9 +268,10 @@
 
                   // add new elements
                   myData.forEach((object) => {
-                    let transTime = object.NotificationDate.substr(object.NotificationDate.length - 7);
+                    let transTime = (object.NotificationDate == null) ? object.TranDate.substr(object.TranDate.length - 7) : object.NotificationDate.substr(object.NotificationDate.length - 7);
+                    let noteStatus = (object.NotificationStatus == null) ? 'Paid through app' : object.NotificationStatus;
                     let tr = document.createElement('tr');
-                    tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message"> ${object.NotificationStatus} </td><td class ="note-time"> ${transTime} </td>`;
+                    tr.innerHTML = `<td class="note-phone"> ${object.CustomerMobile} </td><td class="note-message"> ${noteStatus} </td><td class ="note-time"> ${transTime} </td>`;
                     table.appendChild(tr);
                   });
 
@@ -593,7 +594,9 @@
                 totalSales += Number.parseFloat(object.TranAmount);
               });
 
-              $('#total-sales').text(`${totalSales.toString()} OMR`);
+              console.log(`Total Sales: ${totalSales}`);
+
+              $('#total-sales').text(`${totalSales.toFixed(3)} OMR`);
 
               // remove all elements
               myData.splice(0, myData.length);
