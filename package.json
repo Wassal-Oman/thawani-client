@@ -7,7 +7,7 @@
     "start": "electron .",
     "pack": "build --dir"
   },
-  "build" : {
+  "build": {
     "appId": "om.thawani.thawani-client",
     "productName": "Thawani Client"
   },
@@ -34,6 +34,7 @@
     "ionicons": "^4.4.3",
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.3.0",
+    "mkdirp": "^0.5.1",
     "modernizr": "^3.6.0",
     "moment": "^2.22.2",
     "nodemailer": "^4.6.8",

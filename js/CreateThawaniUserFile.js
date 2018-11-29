@@ -2,9 +2,9 @@ const path = require("path");
 const fs = require("fs");
 const mkdirp = require('mkdirp');
 
-module.exports = (myPath, data) => {
+module.exports = () => {
     // get inputs
-    let absolutePath = path.resolve(myPath);
+    let absolutePath = path.resolve('C:/thawani/data/user.json');
 
     return new Promise((resolve, reject) => {
         fs.exists(absolutePath, (found) => {
@@ -13,9 +13,11 @@ module.exports = (myPath, data) => {
                 mkdirp('/thawani/data', err => {
                     if(err) {
                         console.log(err);
-                        alert('Cannot Create Thawani Directory in C Drive');
                         return reject(false);
                     } else {
+                        // create settings structure
+                        let data = {};
+
                         // write user settings
                         fs.writeFile(absolutePath, JSON.stringify(data), (err) => {
                             if(err) {
@@ -28,6 +30,10 @@ module.exports = (myPath, data) => {
                 });
 
             } else {
+
+                // create settings structure
+                let data = {};
+
                 // write user settings
                 fs.writeFile(absolutePath, JSON.stringify(data), (err) => {
                     if(err) {

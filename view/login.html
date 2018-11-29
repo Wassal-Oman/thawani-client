@@ -119,11 +119,13 @@
   <script>if (window.module) module = window.module;</script>
   <script>
     // import needed libraries
-    const path = require('path');
     const store = require('../js/StoreData');
     const retrieve = require('../js/GetData');
     const signIn = require('../js/Login');
     const mail = require('../js/SendEmail');
+    const createSettings = require('../js/CreateThawaniSettingsFile');
+    const createRememberMe = require('../js/CreateThawaniRememberMeFile');
+    const createUser = require('../js/CreateThawaniUserFile');
 
     // make sure the page is fully loaded
     $(document).ready(() => {
@@ -131,8 +133,27 @@
       // loader
       $("#loader").removeClass('loading');
 
+      // create settings/ user and remember me files
+      createUser().then(val => {
+        console.log('User File created');
+      }).catch(err => {
+        console.log(err);
+      });
+
+      createSettings().then(val => {
+        console.log('Settings File created');
+      }).catch(err => {
+        console.log(err);
+      });
+
+      createRememberMe().then(val => {
+        console.log('Remeber Me File created');
+      }).catch(err => {
+        console.log(err);
+      });
+
       // get cashier id if stored
-      retrieve(path.join(__dirname, '../data/settings.json')).then(val => {
+      retrieve('C:/thawani/data/settings.json').then(val => {
         // parse data
         let content = JSON.parse(val);
         $('#cashier_id').val(content.MERCHANT_ID);
@@ -143,7 +164,7 @@
       });
 
       // get cashier id if stored
-      retrieve(path.join(__dirname, '../data/remember.json')).then(val => {
+      retrieve('C:/thawani/data/remember.json').then(val => {
         // parse data
         let content = JSON.parse(val);
         let rem = content.REMEMBER_ME;
@@ -174,7 +195,7 @@
         };
 
         // store data
-        store(path.join(__dirname, '../data/settings.json'), data).then(val => {
+        store('C:/thawani/data/settings.json', data).then(val => {
           if(val) {
             alert('saved!');
           } else {
@@ -188,7 +209,7 @@
 
       // load settings
       $('#user-settings-button').click(() => {
-        retrieve(path.join(__dirname, '../data/settings.json')).then(val => {
+        retrieve('C:/thawani/data/settings.json').then(val => {
 
           // parse data
           let content = JSON.parse(val);
@@ -229,7 +250,7 @@
           } else {
             // store user data
             let msg = JSON.parse(message)[0];
-            store(path.join(__dirname, '../data/user.json'), msg).then(val => {
+            store('C:/thawani/data/user.json', msg).then(val => {
               if(val) {
                 window.location = 'home.html';
               } else {
@@ -277,7 +298,7 @@
         };
       }
 
-      store(path.join(__dirname, '../data/remember.json'), r).then(val => {
+      store('C:/thawani/data/remember.json', r).then(val => {
         if(val) {
           console.log('Remember Me Option is ON');
         } else {
