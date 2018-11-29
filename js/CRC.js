@@ -389,16 +389,16 @@ function setTableTLV(value) {
 function generateQRCodeString(cashierId, tableNumber) {
 
     // define codes for QR
-    const crcCode = '1104'
-    const customerTLV = '020800000000'
+    const crcCode = '1104';
+    const customerTLV = '020800000000';
 
     // calculate table TLV object
-    let tableTLV = setTableTLV(tableNumber)
-    let merchantTLV = '0105' + cashierId
+    let tableTLV = setTableTLV(tableNumber);
+    let merchantTLV = '0105' + cashierId;
 
     // build QR string
-    let qrStr = merchantTLV + customerTLV + tableTLV + crcCode
-    let crcTLV = crc16(qrStr).toString(16).toUpperCase()
-    console.log(qrStr + crcTLV)
-    return (qrStr + crcTLV) // returns a string.
+    let qrStr = merchantTLV + customerTLV + tableTLV + crcCode;
+    let crcTLV = crc16(qrStr).toString(16).toUpperCase();
+    console.log(qrStr + crcTLV);
+    return (qrStr + crcTLV); // returns a string.
 }

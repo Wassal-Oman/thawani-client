@@ -12,7 +12,10 @@ module.exports = (myPath, data) => {
             else {
                 // write user settings
                 fs.writeFile(absolutePath, d, (err) => {
-                    if(err) return reject(false); 
+                    if(err) {
+                        console.log(err);
+                        return reject(false);
+                    }
                     else return resolve(true);
                 });
             }

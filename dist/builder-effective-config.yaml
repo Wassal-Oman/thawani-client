@@ -1,0 +1,6 @@
+directories:
+  output: dist
+  buildResources: build
+appId: om.thawani.thawani-client
+productName: Thawani Client
+electronVersion: 3.0.9

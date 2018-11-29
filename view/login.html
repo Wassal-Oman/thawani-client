@@ -119,6 +119,7 @@
   <script>if (window.module) module = window.module;</script>
   <script>
     // import needed libraries
+    const path = require('path');
     const store = require('../js/StoreData');
     const retrieve = require('../js/GetData');
     const signIn = require('../js/Login');
@@ -131,17 +132,18 @@
       $("#loader").removeClass('loading');
 
       // get cashier id if stored
-      retrieve('./data/settings.json').then(val => {
+      retrieve(path.join(__dirname, '../data/settings.json')).then(val => {
         // parse data
         let content = JSON.parse(val);
         $('#cashier_id').val(content.MERCHANT_ID);
         $('#recovery-email').val(content.MERCHANT_ID);
       }).catch(err => {
+        console.log(err);
         console.log('No settings found!');
       });
 
       // get cashier id if stored
-      retrieve('./data/remember.json').then(val => {
+      retrieve(path.join(__dirname, '../data/remember.json')).then(val => {
         // parse data
         let content = JSON.parse(val);
         let rem = content.REMEMBER_ME;
@@ -152,6 +154,7 @@
           $('.checkbox').removeClass('show');
         }
       }).catch(err => {
+        console.log(err);
         console.log('No Remember Me Option Found!');
       });
 
@@ -171,20 +174,21 @@
         };
 
         // store data
-        store('./data/settings.json', data).then(val => {
+        store(path.join(__dirname, '../data/settings.json'), data).then(val => {
           if(val) {
             alert('saved!');
           } else {
             alert('cannot save!');
           }
         }).catch(err => {
+          console.log(err);
           alert('cannot save!');
         });
       });
 
       // load settings
       $('#user-settings-button').click(() => {
-        retrieve('./data/settings.json').then(val => {
+        retrieve(path.join(__dirname, '../data/settings.json')).then(val => {
 
           // parse data
           let content = JSON.parse(val);
@@ -195,6 +199,7 @@
           $('#privatekey').val(content.PRIVATE_KEY);
           $('#cashier_id').val(content.MERCHANT_ID);
         }).catch(err => {
+          console.log(err);
           alert('No settings found!');
         });
       });
@@ -224,7 +229,7 @@
           } else {
             // store user data
             let msg = JSON.parse(message)[0];
-            store('./data/user.json', msg).then(val => {
+            store(path.join(__dirname, '../data/user.json'), msg).then(val => {
               if(val) {
                 window.location = 'home.html';
               } else {
@@ -272,13 +277,14 @@
         };
       }
 
-      store('./data/remember.json', r).then(val => {
+      store(path.join(__dirname, '../data/remember.json'), r).then(val => {
         if(val) {
           console.log('Remember Me Option is ON');
         } else {
           console.log('Remember Me Option is OFF');
         }
       }).catch(err => {
+        console.log(err);
         console.log('ERROR in Remember Me Option');
       });
     }

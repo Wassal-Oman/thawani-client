@@ -3,6 +3,7 @@ const axios = require('axios');
 const moment = require('moment');
 const retrieve = require('../js/GetDataSync');
 const jwt = require('../js/JsonWebToken');
+const path = require('path');
 
 module.exports = async (phone, amount, remarks) => {
 
@@ -12,7 +13,7 @@ module.exports = async (phone, amount, remarks) => {
         const url = 'http://uat.thawani.om:7501/api/ThirdParty';
 
         // get user data
-        let user = retrieve('./data/user.json');
+        let user = retrieve(path.join(__dirname, '../data/user.json'));
         let merchantId = JSON.parse(user).UserId;
         let token = JSON.parse(user).Token;
 
@@ -21,7 +22,7 @@ module.exports = async (phone, amount, remarks) => {
         }
 
         // get source id
-        let settings = retrieve('./data/settings.json');
+        let settings = retrieve(path.join(__dirname, '../data/settings.json'));
         let sourceId = JSON.parse(settings).SOURCE_ID;
 
         if(!sourceId) {

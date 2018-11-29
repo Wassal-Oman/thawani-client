@@ -4,7 +4,12 @@
   "description": "Thawani Desktop Application For Merchant Notification Service.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "build --dir"
+  },
+  "build" : {
+    "appId": "om.thawani.thawani-client",
+    "productName": "Thawani Client"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [

@@ -3,6 +3,7 @@ const axios = require('axios');
 const qs = require('qs');
 const retrieve = require('../js/GetDataSync');
 const encrypt = require('../js/Encryption');
+const path = require('path');
 
 module.exports = async (cashierId, password) => {
 
@@ -22,10 +23,10 @@ module.exports = async (cashierId, password) => {
     }
 
     // get source id
-    sourceId = retrieve('./data/settings.json');
+    sourceId = retrieve(path.join(__dirname, '../data/settings.json'));
 
     // get encrypted password
-    encryptedPass = encrypt('./keys/ThawaniPublic.key', password);
+    encryptedPass = encrypt(path.join(__dirname, '../keys/ThawaniPublic.key'), password);
 
     let promise = new Promise((resolve, reject) => {
 

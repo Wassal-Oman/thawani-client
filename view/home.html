@@ -321,7 +321,7 @@
       $(document).ready(() => {
 
         // load user data
-        retrieve('./data/user.json').then(data => {
+        retrieve(path.join(__dirname, '../data/user.json')).then(data => {
 
           // parse user data
           let content =  JSON.parse(data);
@@ -578,6 +578,12 @@
           $(this).datepicker('clearDates');
       });
 
+      // trigger I'm here button click
+      $(document).on('click', '.here-button', () => {
+        let $item = $(this).closest("tr").find(".here-number").text();
+        console.log($item);
+      });
+
       function updateSales() {
         // load total sales
         history('', '').then((response) => {
@@ -744,9 +750,9 @@
                   // add new elements
                   myData.forEach((object) => {
                     var tr = document.createElement('tr')
-                    tr.innerHTML = '<td>' + object.phone + '</td>' +
+                    tr.innerHTML = '<td class="here-number">' + object.phone + '</td>' +
                       '<td> Table #' + object.table_number + '</td>' +
-                      '<td><button style="height: 25px; width: 50px;" class="here info text-center" data-toggle="modal" data-target="#wayyak-dailog-in-table"><ion-icon name="send"></ion-icon></button></td>';
+                      '<td><button style="height: 25px; width: 50px;" class="here-button here info text-center" data-toggle="modal" data-target="#wayyak-dailog-in-table"><ion-icon name="send"></ion-icon></button></td>';
                     table.appendChild(tr);
                   });
 
