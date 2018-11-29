@@ -1,8 +1,8 @@
 version: 1.0.0
 files:
   - url: thawani-client-setup-1.0.0.exe
-    sha512: IG5alKmQBcrCTvOEDynZxzdnbNpn7vtpbfewe7caVZpT534LipZCyB26VdIqk+ycc4HCSyAuaybPexJptNkWIA==
-    size: 77963303
+    sha512: zz8WWh+DSknGLI+fc3zcJRmOolO+uLOqGIn5WWzsI0nYMUK8HpDZML3JUixggARcPlM/CGraS95WeH4bDmS1tA==
+    size: 77961846
 path: thawani-client-setup-1.0.0.exe
-sha512: IG5alKmQBcrCTvOEDynZxzdnbNpn7vtpbfewe7caVZpT534LipZCyB26VdIqk+ycc4HCSyAuaybPexJptNkWIA==
-releaseDate: '2018-11-29T09:43:46.982Z'
+sha512: zz8WWh+DSknGLI+fc3zcJRmOolO+uLOqGIn5WWzsI0nYMUK8HpDZML3JUixggARcPlM/CGraS95WeH4bDmS1tA==
+releaseDate: '2018-11-29T11:45:46.608Z'
