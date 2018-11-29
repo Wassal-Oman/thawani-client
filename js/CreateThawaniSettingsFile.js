@@ -32,24 +32,6 @@ module.exports = () => {
                         });
                     }
                 });
-
-            } else {
-
-                // create settings structure
-                let data = {
-                    SOURCE_ID: "",
-                    MERCHANT_ID: "",
-                    PRIVATE_KEY: ""
-                };
-
-                // write user settings
-                fs.writeFile(absolutePath, JSON.stringify(data), (err) => {
-                    if(err) {
-                        console.log(err);
-                        return reject(false);
-                    }
-                    else return resolve(true);
-                });
             }
         });
     });

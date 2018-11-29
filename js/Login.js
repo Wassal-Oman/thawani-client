@@ -23,7 +23,7 @@ module.exports = async (cashierId, password) => {
     }
 
     // get source id
-    sourceId = retrieve(path.join(__dirname, '../data/settings.json'));
+    sourceId = retrieve('C:/thawani/data/settings.json');
 
     // get encrypted password
     encryptedPass = encrypt(path.join(__dirname, '../keys/ThawaniPublic.key'), password);

@@ -19,7 +19,7 @@ module.exports = async (merchantId) => {
         // setup email data with unicode symbols
         let mailOptions = {
             from: '"Thawani Client" <thawani.mail@gmail.com>', // sender address
-            to: 'ghanim.marzouqi@thawani.om', // list of receivers
+            to: 'info@thawani.om', // list of receivers
             subject: 'Reset Password', // Subject line
             text: `Please help me resetting my password for Merchant ID: ${merchantId}`, // plain text body
             html: '' // html body

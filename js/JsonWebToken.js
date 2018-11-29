@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = async (unique_name) => {
     // read user settings
-    let data = retrieve(path.join(__dirname, '../data/settings.json'));
+    let data = retrieve('C:/thawani/data/settings.json');
     
     return await new Promise((resolve, reject) => {
         if(data.length != 0) {

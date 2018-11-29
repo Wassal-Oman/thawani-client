@@ -13,7 +13,7 @@ module.exports = async (phone, amount, remarks) => {
         const url = 'http://uat.thawani.om:7501/api/ThirdParty';
 
         // get user data
-        let user = retrieve(path.join(__dirname, '../data/user.json'));
+        let user = retrieve('C:/thawani/data/user.json');
         let merchantId = JSON.parse(user).UserId;
         let token = JSON.parse(user).Token;
 
@@ -22,7 +22,7 @@ module.exports = async (phone, amount, remarks) => {
         }
 
         // get source id
-        let settings = retrieve(path.join(__dirname, '../data/settings.json'));
+        let settings = retrieve('C:/thawani/data/settings.json');
         let sourceId = JSON.parse(settings).SOURCE_ID;
 
         if(!sourceId) {
