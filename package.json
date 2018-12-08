@@ -22,7 +22,7 @@
   "author": "Thawani Pay",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^3.0.9"
+    "electron": "^3.0.10"
   },
   "dependencies": {
     "axios": "^0.18.0",

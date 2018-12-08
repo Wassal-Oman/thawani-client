@@ -44,26 +44,7 @@
     </div>
 
     <div class="row card">
-      <div class="col-xs-6">
-        <div class="table-style">
-          <table id="here" class="table table-striped">
-            <thead>
-              <tr>
-                <th valign="middle">
-                  <div id="imhere" class="checkbox">
-                    <span class="character-checkbox" onclick="imhere()"></span>
-                    <span class="label">I'm Here</span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody id="imhere-data">
-
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-xs-6">
+      <div class="col-xs-12">
         <div class="table-style">
           <table id="note" style="background-color: #ffffff" class="table table-striped">
             <thead>
@@ -88,7 +69,6 @@
       </div>
 
       <div>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#qr-dailog">Generate QR</button>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#wayyak-dailog">Send Wayyak</button>
         <button type="button" class="btn btn-success" onclick="loadHistoryByDate()">Load Recent Transactions</button>  
         <button id="sign-out" type="button" class="btn btn-success" style="float: right;">Sign Out</button>
@@ -181,34 +161,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Generating QR Modal -->
-      <div class="modal fade" id="qr-dailog" role="dialog">
-        <div class="modal-dialog">
-
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Generating QR Code</h4>
-            </div>
-            <div class="modal-body" style="background-color: #ebebeb;">
-              <div class="well">
-                Cashier ID is <label id="cashier-id" for="cashier id">00000</label>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" id="table-number" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                  placeholder="Table Number From 1 To 99">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button id="generate-qr" type="button" class="btn btn-success" data-dismiss="modal">Generate</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <!-- JS Files -->
@@ -218,8 +170,6 @@
     <script src="../node_modules/bootstrap-table/dist/bootstrap-table.min.js"></script>
     <script src="../node_modules/ionicons/dist/ionicons.js"></script>
     <script src="../node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="../js/CRC.js"></script>
-    <script src="../js/ConvertToQR.js"></script>
     <script>if (window.module) module = window.module;</script>
     <script>
 
@@ -337,7 +287,7 @@
           console.log(err);
         });
 
-        // show total sales
+        // show daily sales
         updateSales();
 
         let date_input = $('input[name="date"]'); //our date input has the name "date"
@@ -510,27 +460,6 @@
           }
         });
 
-        $('#generate-qr').click(() => {
-
-          // handle QR Code generation
-          let cashier_id = $('#cashier-id').text();
-          let table_num = $('#table-number').val();
-
-          if (cashier_id != '' && table_num != '') {
-
-            // check for table number
-            if (Number.parseInt(table_num) > 0 && Number.parseInt(table_num) < 100) {
-              let code = generateQRCodeString(cashier_id, table_num);
-              let image = setImage(code);
-              window.open(image);
-            } else {
-              alert('Table number must be a number between 1 and 99');
-            }
-          } else {
-            alert('Please enter Table Number');
-          }
-        });
-
         $('#send-wayyak').click(() => {
           let phone = $('#customer-phone').val();
           let amount = $('#amount').val();
@@ -576,12 +505,6 @@
 
       $('.input-daterange input').each(() => {
           $(this).datepicker('clearDates');
-      });
-
-      // trigger I'm here button click
-      $(document).on('click', '.here-button', () => {
-        let $item = $(this).closest("tr").find(".here-number").text();
-        console.log($item);
       });
 
       function updateSales() {
@@ -716,64 +639,6 @@
         }
       }
 
-      function imhere() {
-
-        // import function for I'm Here Service
-        const getAllTables = require('../js/ImHere');
-
-        let class_exists = $('#imhere').hasClass('show');
-        let myData = [];
-
-        if (!class_exists) {
-          $('.checkbox').addClass('show');
-
-          // start service
-          setInterval(() => {
-            let cashier = $('#cashier-id').text();
-            if (cashier !== '') {
-              getAllTables(cashier).then((response) => {
-
-                console.log(response.data.data);
-
-                // read all elements
-                myData = response.data.data;
-
-                // load data
-                if (myData.length > 0) {
-                  let table = document.getElementById('imhere-data');
-
-                  // remove old elements
-                  while (table.hasChildNodes()) {
-                    table.removeChild(table.firstChild);
-                  }
-
-                  // add new elements
-                  myData.forEach((object) => {
-                    var tr = document.createElement('tr')
-                    tr.innerHTML = '<td class="here-number">' + object.phone + '</td>' +
-                      '<td> Table #' + object.table_number + '</td>' +
-                      '<td><button style="height: 25px; width: 50px;" class="here-button here info text-center" data-toggle="modal" data-target="#wayyak-dailog-in-table"><ion-icon name="send"></ion-icon></button></td>';
-                    table.appendChild(tr);
-                  });
-
-                  // remove all elements
-                  myData.splice(0, myData.length);
-                } else {
-                  var tr = document.createElement('tr');
-                  tr.innerHTML = '<td> No data available </td>';
-                  table.appendChild(tr);
-                }
-              }).catch(error => {
-                console.log(error);
-              });
-            }
-          }, 10000);
-        } else {
-          $('.checkbox').removeClass('show');
-        }
-      }
-
     </script>
 </body>
-
 </html>

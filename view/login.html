@@ -31,15 +31,8 @@
                 <label for="key" class="sr-only">Password</label>
                 <input type="password" id="password" class="form-control" placeholder="Password">
               </div>
-              <div id="remember" class="checkbox">
-                <span class="character-checkbox" onclick="rememberMe()"></span>
-                <span class="label">Remember Me</span>
-              </div>
               <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Sign In">
             </form>
-            <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">
-              Forgot your password?
-            </a>
             <hr>
           </div>
         </div> <!-- /.col-xs-12 -->
@@ -118,13 +111,12 @@
   <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script>if (window.module) module = window.module;</script>
   <script>
+    
     // import needed libraries
     const store = require('../js/StoreData');
     const retrieve = require('../js/GetData');
     const signIn = require('../js/Login');
-    const mail = require('../js/SendEmail');
     const createSettings = require('../js/CreateThawaniSettingsFile');
-    const createRememberMe = require('../js/CreateThawaniRememberMeFile');
     const createUser = require('../js/CreateThawaniUserFile');
 
     // make sure the page is fully loaded
@@ -133,21 +125,16 @@
       // loader
       $("#loader").removeClass('loading');
 
-      // create settings/ user and remember me files
+      // create user settings
       createUser().then(val => {
         console.log('User File created');
       }).catch(err => {
         console.log(err);
       });
 
+      // create general settings
       createSettings().then(val => {
         console.log('Settings File created');
-      }).catch(err => {
-        console.log(err);
-      });
-
-      createRememberMe().then(val => {
-        console.log('Remeber Me File created');
       }).catch(err => {
         console.log(err);
       });
@@ -161,22 +148,6 @@
       }).catch(err => {
         console.log(err);
         console.log('No settings found!');
-      });
-
-      // get cashier id if stored
-      retrieve('C:/thawani/data/remember.json').then(val => {
-        // parse data
-        let content = JSON.parse(val);
-        let rem = content.REMEMBER_ME;
-
-        if(rem) {
-          $('.checkbox').addClass('show');
-        } else {
-          $('.checkbox').removeClass('show');
-        }
-      }).catch(err => {
-        console.log(err);
-        console.log('No Remember Me Option Found!');
       });
 
       // save settings
@@ -231,6 +202,8 @@
       cashierId = $("#cashier_id").val();
       password = $("#password").val();
 
+      window.location = 'home.html';
+
       if (cashierId !== '' && password !== '') {
         
         // display loader
@@ -277,54 +250,6 @@
       }
     }
 
-    function rememberMe() {
-      let class_exists = $('#remember').hasClass('show');
-      let r = {
-        REMEMBER_ME: false
-      };
-
-      if (!class_exists) {
-        $('.checkbox').addClass('show');
-
-        r = {
-          REMEMBER_ME: true
-        };
-
-      } else {
-        $('.checkbox').removeClass('show');
-
-        r = {
-          REMEMBER_ME: false
-        };
-      }
-
-      store('C:/thawani/data/remember.json', r).then(val => {
-        if(val) {
-          console.log('Remember Me Option is ON');
-        } else {
-          console.log('Remember Me Option is OFF');
-        }
-      }).catch(err => {
-        console.log(err);
-        console.log('ERROR in Remember Me Option');
-      });
-    }
-
-    function forgetPassword() {
-
-      // get cashier id
-      let merId = $('#recovery-email').val();
-
-      if(merId !== '') {
-        mail(merId).then(val => { // send email
-          alert(val);
-        }).catch(err => {
-          alert(err);
-        });
-      } else {
-        alert('Please enter cashier id!');
-      }
-    }
   </script>
 </body>
 </html>
